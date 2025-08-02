@@ -1,0 +1,22 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: auth-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/lms_auth
+    username: root
+    password: kishore
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  config:
+    import: optional:configserver:http://localhost:8088
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

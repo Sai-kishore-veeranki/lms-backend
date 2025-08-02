@@ -3,7 +3,7 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
-      <profile name="Annotation profile for config-server" enabled="true">
+      <profile name="Annotation profile for user-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -12,18 +12,28 @@
         </processorPath>
         <module name="course-service" />
         <module name="config-server" />
-        <module name="discovery-server" />
-        <module name="api-gateway" />
         <module name="user-service" />
+        <module name="discovery-server" />
         <module name="notification-service" />
         <module name="enrollment-service" />
+      </profile>
+      <profile name="Annotation profile for auth-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+        </processorPath>
+        <module name="config-server (1)" />
+        <module name="auth-service" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="api-gateway" options="-parameters" />
+      <module name="auth-service" options="-parameters" />
       <module name="config-server" options="-parameters" />
+      <module name="config-server (1)" options="-parameters" />
       <module name="course-service" options="-parameters" />
       <module name="discovery-server" options="-parameters" />
       <module name="enrollment-service" options="-parameters" />
