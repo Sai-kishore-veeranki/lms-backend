@@ -1,7 +1,7 @@
 package com.vsk.lms.user_service.controller;
 
-import com.vsk.lms.user_service.dto.CreateUserRequest;
-import com.vsk.lms.user_service.dto.UserDTO;
+import com.vsk.lms.user_service.client.AuthClient;
+import com.vsk.lms.user_service.dto.UserDto;
 import com.vsk.lms.user_service.service.serviceinterfaces.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,19 +16,25 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-
-    @PostMapping
-    public ResponseEntity<UserDTO> createUser(@Valid @RequestBody CreateUserRequest request) {
-        return ResponseEntity.ok(userService.createUser(request));
-    }
+    private final AuthClient authClient;
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDto> getUser(@PathVariable Long id,
+                                           @RequestHeader("Authorization") String token) {
+        authClient.validateToken(token);
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
+    public ResponseEntity<List<UserDto>> getAll(@RequestHeader("Authorization") String token) {
+        authClient.validateToken(token);
         return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @PostMapping
+    public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto dto,
+                                              @RequestHeader("Authorization") String token) {
+        authClient.validateToken(token);
+        return ResponseEntity.ok(userService.createUser(dto));
     }
 }
